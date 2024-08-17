@@ -27,15 +27,21 @@ export default function Home() {
     setCarsList(filterList)
   }
 
+  const orderCarList = (order:any) => {
+    const orderList = [...carsOrgList].sort((x, y) =>
+      order == -1 ? x.price - y.price : y.price - x.price);
+    setCarsList(orderList);
+  }
+
   return (
     <div className={"p-5 sm:px-10 md:px-20"}>
       <Hero/>
       <SearchInput/>
       <CarsFiltersOption
         carsList={carsOrgList}
-        setBrand={(value) => {
-          filterCarsList(value)
-      }}/>
+        setBrand={(value:string) => filterCarsList(value)}
+        orderCarList={(value:string)=> orderCarList(value)}
+      />
       <CarsList carsList={carsList}/>
     </div>
   );
