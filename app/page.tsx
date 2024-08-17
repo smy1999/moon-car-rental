@@ -5,6 +5,7 @@ import SearchInput from "@/components/Home/SearchInput";
 import CarsFiltersOption from "@/components/Home/CarsFiltersOption";
 import {useEffect, useState} from "react";
 import {getCarsList} from "@/services";
+import CarsList from "@/components/Home/CarsList";
 
 export default function Home() {
 
@@ -16,7 +17,8 @@ export default function Home() {
 
   const getCarsList_ = async () => {
     const result:any = await getCarsList();
-    setCarsList(result?.carsList)
+    console.log(1, result?.carLists)
+    setCarsList(result?.carLists)
   }
 
   return (
@@ -24,6 +26,7 @@ export default function Home() {
       <Hero/>
       <SearchInput/>
       <CarsFiltersOption/>
+      <CarsList carsList={carsList}/>
     </div>
   );
 }
