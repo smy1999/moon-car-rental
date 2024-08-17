@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Image from "next/image";
 import {MdAirlineSeatReclineNormal} from "react-icons/md";
 import {FaGasPump} from "react-icons/fa";
@@ -6,6 +6,12 @@ import {PiSteeringWheelFill} from "react-icons/pi";
 
 const CarCard = (props: any) => {
   const [car, setCar] = useState(props.car)
+
+  useEffect(() => {
+    if (props.car) {
+      setCar(props.car)
+    }
+  }, [props.car]);
 
   return (
     <div className={'group bg-gray-50 p-2 sm:p-5 rounded-3xl m-1 sm:m-5 hover:bg-white ' +
@@ -30,15 +36,15 @@ const CarCard = (props: any) => {
       <div className={'flex justify-around group-hover:hidden'}>
         <div className={'text-center text-gray-500'}>
           <PiSteeringWheelFill className={'w-full text-[22px] mb-2'}/>
-          <h2 className={'line-clamp-5 text-[14px] font-light'}>{car.carType}</h2>
+          <h2 className={'line-clamp-5 text-[14px] font-light'}>{car?.carType}</h2>
         </div>
         <div className={'text-center text-gray-500'}>
           <MdAirlineSeatReclineNormal className={'w-full text-[22px] mb-2'}/>
-          <h2 className={'line-clamp-5 text-[14px] font-light'}>{car.seat} Seat</h2>
+          <h2 className={'line-clamp-5 text-[14px] font-light'}>{car?.seat} Seat</h2>
         </div>
         <div className={'text-center text-gray-500'}>
           <FaGasPump className={'w-full text-[22px] mb-2'}/>
-          <h2 className={'line-clamp-5 text-[14px] font-light'}>{car.carAvg} MPG</h2>
+          <h2 className={'line-clamp-5 text-[14px] font-light'}>{car?.carAvg} MPG</h2>
         </div>
       </div>
       <button

@@ -10,6 +10,7 @@ import CarsList from "@/components/Home/CarsList";
 export default function Home() {
 
   const [carsList, setCarsList] = useState<any>([])
+  const [carsOrgList, setCarsOrgList] = useState<any>([])
 
   useEffect(() => {
     getCarsList_()
@@ -17,15 +18,30 @@ export default function Home() {
 
   const getCarsList_ = async () => {
     const result:any = await getCarsList();
-    console.log(1, result?.carLists)
     setCarsList(result?.carLists)
+    setCarsOrgList(result?.carLists)
+  }
+
+  const filterCarsList = (brand:string) => {
+    const filterList = carsOrgList.filter((item: any) => item.carBrand == brand);
+    setCarsList(filterList)
+  }
+
+  const orderCarList = (order:any) => {
+    const orderList = [...carsOrgList].sort((x, y) =>
+      order == -1 ? x.price - y.price : y.price - x.price);
+    setCarsList(orderList);
   }
 
   return (
     <div className={"p-5 sm:px-10 md:px-20"}>
       <Hero/>
       <SearchInput/>
-      <CarsFiltersOption/>
+      <CarsFiltersOption
+        carsList={carsOrgList}
+        setBrand={(value:string) => filterCarsList(value)}
+        orderCarList={(value:string)=> orderCarList(value)}
+      />
       <CarsList carsList={carsList}/>
     </div>
   );
