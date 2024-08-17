@@ -1,10 +1,11 @@
-import {UserButton} from "@clerk/nextjs";
+"use client"
+
+import Hero from "@/components/Home/Hero";
 
 export default function Home() {
   return (
-    <div>
-      <h2>Hi there</h2>
-      <UserButton/>
+    <div className={"p-5 sm:px-10 md:px-20"}>
+      <Hero/>
     </div>
   );
 }
