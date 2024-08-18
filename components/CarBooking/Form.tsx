@@ -1,6 +1,20 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import {getLocationList} from "@/services";
 
 const Form = () => {
+
+  useEffect(() => {
+    getLocationLists_()
+  }, []);
+
+  const [locations, setLocations] = useState([])
+
+  const getLocationLists_ = async () => {
+    const result: any = await getLocationList();
+    setLocations(result?.storeLocations);
+  }
+
+
   return (
     <div className={'pt-2'}>
 
@@ -9,8 +23,9 @@ const Form = () => {
           <label className={'text-gray-400'}>Pick Up Location</label>
           <select className="select select-bordered w-full max-w-lg">
             <option disabled selected>Select Pick Up Location</option>
-            <option>Seattle</option>
-            <option>Sunnyvale</option>
+            {locations && locations.map((location: any, index: number) => (
+              <option key={index}>{location.address}</option>
+            ))}
           </select>
         </div>
       </div>
