@@ -1,11 +1,34 @@
 import React, {useEffect, useState} from 'react';
-import {getLocationList} from "@/services";
+import {createBooking, getLocationList} from "@/services";
+import {useUser} from '@clerk/clerk-react';
 
-const Form = () => {
+const Form = ({car}: any) => {
+
+  useEffect(() => {
+    if (car) {
+      setFormValue({
+        ...formValue,
+        carId: car.id,
+      })
+    }
+  }, [car]);
 
   useEffect(() => {
     getLocationLists_()
   }, []);
+
+  // todo update user info
+  // useEffect(() => {
+  //   console.log(0, isSignedIn, isLoaded)
+  //   if (isSignedIn && isLoaded) {
+  //     setFormValue({
+  //       ...formValue,
+  //       email: user.primaryEmailAddress?.emailAddress!
+  //     })
+  //   }
+  // }, [])
+  //
+  // const {isSignedIn, user, isLoaded} = useUser()
 
   const [locations, setLocations] = useState([])
 
@@ -21,6 +44,9 @@ const Form = () => {
     dropOffDate: '',
     dropOffTime: '',
     contactNumber: '',
+    userName: 'Meyer',
+    email: 'xxx@yy.zzz',
+    carId: ''
   });
 
   const handleChange = (event: any) => {
@@ -30,8 +56,10 @@ const Form = () => {
     })
   };
 
-  const handleSubmit = (event: any) => {
+  const handleSubmit = async () => {
     console.log(formValue)
+    const response = await createBooking(formValue);
+    console.log(9, response)
   };
 
   return (
@@ -97,7 +125,7 @@ const Form = () => {
             type="time"
             placeholder="Type here"
             className="input input-bordered w-full max-w-lg"
-            name={'DropOffTime'}
+            name={'dropOffTime'}
             onChange={handleChange}
           />
         </div>

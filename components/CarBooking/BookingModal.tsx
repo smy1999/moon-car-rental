@@ -16,7 +16,7 @@ const BookingModal = ({car}: any) => {
           <CarCard car={car}/>
         </div>
         <div>
-          <Form />
+          <Form car={car}/>
         </div>
       </div>
     </form>

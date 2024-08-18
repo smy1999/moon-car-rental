@@ -39,3 +39,29 @@ export const getLocationList = async () => {
   return await request(url, query);
 }
 
+export const createBooking = async (formValue: any) => {
+  const mutation = gql`
+    mutation createBookingRecord {
+      createBooking(
+        data: {
+          userName: "` + formValue.userName + `", 
+          email: "` + formValue.email + `", 
+          dropOffTime: "` + formValue.dropOffTime + `", 
+          dropOffDate: "` + formValue.dropOffDate + `",
+          pickUpDate: "` + formValue.pickUpDate + `",
+          pickUpTime: "` + formValue.pickUpTime + `", 
+          contactNumber: "` + formValue.contactNumber + `", 
+          carId: {
+            connect: {
+              id: "` + formValue.carId + `"}
+          }, 
+          location: "` + formValue.location + `"
+        }
+      ) {
+        id
+      }
+    }
+  `
+  return await request(url, mutation)
+};
+
