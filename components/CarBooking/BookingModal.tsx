@@ -19,11 +19,6 @@ const BookingModal = ({car}: any) => {
           <Form />
         </div>
       </div>
-
-      <div className="modal-action">
-        {/* if there is a button, it will close the modal */}
-        <button className="btn">Close</button>
-      </div>
     </form>
 
   );
