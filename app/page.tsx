@@ -28,7 +28,7 @@ export default function Home() {
   }
 
   const orderCarList = (order:any) => {
-    const orderList = [...carsOrgList].sort((x, y) =>
+    const orderList = [...carsList].sort((x, y) =>
       order == -1 ? x.price - y.price : y.price - x.price);
     setCarsList(orderList);
   }
