@@ -30,7 +30,7 @@ const CarsList = (props: any) => {
           <CarCard car={car}/>
         </div>
       ))}
-      {isLoaded ? [1, 2, 3, 4, 5, 6, 7, 8].map(() => <CarCardSkeleton/>) : null}
+      {isLoaded ? [1, 2, 3, 4, 5, 6, 7, 8].map((index) => <CarCardSkeleton key={index}/>) : null}
 
       <dialog id="bookModal" className="modal">
         <BookingModal car={selectedCar}/>
