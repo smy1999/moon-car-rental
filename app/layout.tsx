@@ -1,4 +1,4 @@
-import type {Metadata} from "next";
+import type { Metadata } from "next";
 import {Raleway} from "next/font/google";
 import "./globals.css";
 import {ClerkProvider, SignedIn, SignedOut, SignIn} from "@clerk/nextjs";
