@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {createBooking, getLocationList} from "@/services";
-import {useUser} from '@clerk/clerk-react';
+import {BookCreatedFlagContext} from "@/context/BookCreatedFlagContext";
 
 const Form = ({car}: any) => {
 
@@ -31,6 +31,7 @@ const Form = ({car}: any) => {
   // const {isSignedIn, user, isLoaded} = useUser()
 
   const [locations, setLocations] = useState([])
+  const {setShowToastMessage} = useContext(BookCreatedFlagContext);
 
   const getLocationLists_ = async () => {
     const result: any = await getLocationList();
@@ -57,9 +58,11 @@ const Form = ({car}: any) => {
   };
 
   const handleSubmit = async () => {
-    console.log(formValue)
     const response = await createBooking(formValue);
-    console.log(9, response)
+
+    if (response) {
+      setShowToastMessage(true);
+    }
   };
 
   return (
