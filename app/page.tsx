@@ -6,15 +6,26 @@ import CarsFiltersOption from "@/components/Home/CarsFiltersOption";
 import {useEffect, useState} from "react";
 import {getCarsList} from "@/services";
 import CarsList from "@/components/Home/CarsList";
+import {BookCreatedFlagContext} from "@/context/BookCreatedFlagContext";
+import ToastMessage from "@/components/Home/toastMessage";
 
 export default function Home() {
 
   const [carsList, setCarsList] = useState<any>([])
   const [carsOrgList, setCarsOrgList] = useState<any>([])
+  const [showToastMessage, setShowToastMessage] = useState<boolean>(false)
 
   useEffect(() => {
     getCarsList_()
   }, [])
+
+  useEffect(() => {
+    if (showToastMessage) {
+      setTimeout(() => {
+        setShowToastMessage(false)
+      }, 2000)
+    }
+  }, [showToastMessage])
 
   const getCarsList_ = async () => {
     const result:any = await getCarsList();
@@ -35,14 +46,17 @@ export default function Home() {
 
   return (
     <div className={"p-5 sm:px-10 md:px-20"}>
-      <Hero/>
-      <SearchInput/>
-      <CarsFiltersOption
-        carsList={carsOrgList}
-        setBrand={(value:string) => filterCarsList(value)}
-        orderCarList={(value:string)=> orderCarList(value)}
-      />
-      <CarsList carsList={carsList}/>
+      <BookCreatedFlagContext.Provider value={{showToastMessage, setShowToastMessage}}>
+        <Hero/>
+        <SearchInput/>
+        <CarsFiltersOption
+          carsList={carsOrgList}
+          setBrand={(value:string) => filterCarsList(value)}
+          orderCarList={(value:string)=> orderCarList(value)}
+        />
+        <CarsList carsList={carsList}/>
+        {showToastMessage ? <ToastMessage msg={'Booking created successfully.'}/> : null}
+      </BookCreatedFlagContext.Provider>
     </div>
   );
 }
