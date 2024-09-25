@@ -32,7 +32,7 @@ const Form = ({car}: any) => {
 
   const [locations, setLocations] = useState([])
   const {setShowToastMessage} = useContext(BookCreatedFlagContext);
-
+  const [location, setLocation] = useState('Select Pick Up Location')
   const getLocationLists_ = async () => {
     const result: any = await getLocationList();
     setLocations(result?.storeLocations);
@@ -55,6 +55,7 @@ const Form = ({car}: any) => {
       ...formValue,
       [event.target.name]: event.target.value,
     })
+    setLocation(event.target.value)
   };
 
   const handleSubmit = async () => {
@@ -73,10 +74,11 @@ const Form = ({car}: any) => {
           <label className={'text-gray-400'}>Pick Up Location</label>
           <select
             className="select select-bordered w-full max-w-lg"
+            value={location}
             name={'location'}
             onChange={handleChange}
           >
-            <option disabled selected>Select Pick Up Location</option>
+            <option disabled>Select Pick Up Location</option>
             {locations && locations.map((location: any, index: number) => (
               <option
                 key={index}
