@@ -9,6 +9,8 @@ const CarsFiltersOption = ({carsList, setBrand, orderCarList}: any) => {
   }, [carsList])
 
   const [brandList, setBrandList] = useState<any>([]);
+  const [priceOrder, setPriceOrder] = useState('Price');
+  const [selectedBrand, setSelectedBrand] = useState('Manufacture');
 
   const BrandSet = new Set();
 
@@ -29,22 +31,26 @@ const CarsFiltersOption = ({carsList, setBrand, orderCarList}: any) => {
       </div>
       <div className={'flex gap-5'}>
         <select
-          className="select select-bordered w-full max-w-xs "
+          className="select select-bordered w-full max-w-xs"
+          value={priceOrder}
           onChange={(e) => {
-            orderCarList(e.target.value)
+            setPriceOrder(e.target.value);
+            orderCarList(e.target.value);
           }}
         >
-          <option disabled selected>Price</option>
+          <option value="Price" disabled>Price</option>
           <option value={-1}>Min to Max</option>
           <option value={1}>Max to Min</option>
         </select>
         <select
           className="select select-bordered md:block w-full max-w-xs hidden"
+          value={selectedBrand}
           onChange={(e) => {
-            setBrand(e.target.value)
+            setSelectedBrand(e.target.value);
+            setBrand(e.target.value);
           }}
         >
-          <option disabled selected>Manufacture</option>
+          <option value="Manufacture" disabled>Manufacture</option>
           {brandList && brandList.map((brand: string, index: number) => (
               <option key={index}>{brand}</option>
             )
